@@ -11,4 +11,6 @@ find_package(sdl3 REQUIRED)
 add_executable(tetris main.cpp)
 
 configure_file(./sample.bmp ${PROJECT_BINARY_DIR}/sample.bmp COPYONLY)
+configure_file(./sample.wav ${PROJECT_BINARY_DIR}/sample.wav COPYONLY)
+configure_file(./sword.wav ${PROJECT_BINARY_DIR}/sword.wav COPYONLY)
 target_link_libraries(tetris PRIVATE SDL3::SDL3)
