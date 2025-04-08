@@ -1,3 +1,0 @@
-/Users/joonho/Documents/develop/personal/tetris/cmake-build-debug-event-trace/CMakeFiles/tetris.dir
-/Users/joonho/Documents/develop/personal/tetris/cmake-build-debug-event-trace/CMakeFiles/edit_cache.dir
-/Users/joonho/Documents/develop/personal/tetris/cmake-build-debug-event-trace/CMakeFiles/rebuild_cache.dir
