@@ -1,3 +1,5 @@
-/build/
-/cmake-build-debug-event-trace/
+.idea
+.vs
+build
+cmake-build-debug-event-trace
 /.clang-format
