@@ -7,12 +7,13 @@ set(CMAKE_CXX_STANDARD 17)
 
 #find_package(SDL3 REQUIRED CONFIG REQUIRED COMPONENTS SDL3-shared)
 find_package(SDL3 CONFIG REQUIRED)
+find_package(SDL3_image CONFIG REQUIRED)
 
 #add_executable(tetris main.cpp)
 add_executable(tetris image.cpp)
 
 #file(
-#	GLOB RESOURCES 
+#	GLOB RESOURCES
 #	*.wav
 #	*.jpg
 #	*.bmp
@@ -23,6 +24,6 @@ add_executable(tetris image.cpp)
 #configure_file(./sword.wav ${PROJECT_BINARY_DIR}/sword.wav COPYONLY)
 #configure_file(./gintoki.jpg ${PROJECT_BINARY_DIR}/gintoki.jpg COPYONLY)
 #configure_file(./kagura.bmp ${PROJECT_BINARY_DIR}/kagura.bmp COPYONLY)
-file(COPY ./assets DESTINATION ${CMAKE_BINARY_DIR}/assets)})
+file(COPY ./assets DESTINATION ${CMAKE_BINARY_DIR}/assets)
 
-target_link_libraries(tetris PRIVATE SDL3::SDL3)
+target_link_libraries(tetris PRIVATE SDL3::SDL3 SDL3_image::SDL3_image)
