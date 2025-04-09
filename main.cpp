@@ -1,6 +1,6 @@
-#include <SDL3/SDL.h>
-
 #include <iostream>
+#include <array>
+#include <SDL3/SDL.h>
 
 SDL_Color green{0, 255, 0, 255};
 SDL_Color purple{255, 0, 255, 255};
@@ -26,7 +26,7 @@ int main(int argc, char *argv[]) {
     int lastTickCount = static_cast<int>(SDL_GetTicks());
     int color = 0;
     bool running = true;
-    std::array<SDL_FRect, 2> rects{};
+    std::array<SDL_FRect, 2> rects = {};
 
     rects[0] = {
         static_cast<float>(width) / 2 / 2 - rectWidth / 2,
