@@ -14,9 +14,9 @@ int main() {
 	}
 
 	// BMP image
-	SDL_Surface* helloImage = SDL_LoadBMP("kagura.bmp");
-	 
-	 
+	SDL_Surface* helloImage = SDL_LoadBMP("assets/kagura.bmp");
+
+
 	// JPEG image
 	//SDL_Surface* helloImage = IMG_Load("gintoki.jpg");
 
@@ -31,8 +31,8 @@ int main() {
 
 	SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, helloImage);
 
-	//SDL_FreeSurface(helloBMP); // ÇØÁ¦
-	SDL_DestroySurface(helloImage); // ÇØÁ¦
+	//SDL_FreeSurface(helloBMP); // ë©”ëª¨ë¦¬ í•´ì œ
+	SDL_DestroySurface(helloImage); // ë©”ëª¨ë¦¬ í•´ì œ
 
 	if (texture == 0) {
 		SDL_DestroyRenderer(renderer);
