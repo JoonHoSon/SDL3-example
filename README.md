@@ -20,6 +20,7 @@ C:\vcpkg> .\bootstrap-vcpkg.bat
 ```cmd
 C:\vcpkg> .\vcpkg install sdl3
 C:\vcpkg> .\vcpkg integrate install # 중요
+C:\vcpkg> .\vcpkg install sdl3-image[jpeg,png,tiff,webp]
 ```
 
 ## CMake 빌드

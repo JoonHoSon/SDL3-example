@@ -8,7 +8,6 @@ set(CMAKE_CXX_STANDARD 17)
 #find_package(SDL3 REQUIRED CONFIG REQUIRED COMPONENTS SDL3-shared)
 find_package(SDL3 CONFIG REQUIRED)
 find_package(SDL3_image CONFIG REQUIRED)
-#find_package(libjpeg-turbo CONFIG REQUIRED)
 
 #add_executable(tetris main.cpp)
 add_executable(tetris image.cpp)
@@ -28,4 +27,9 @@ add_executable(tetris image.cpp)
 file(COPY ./assets DESTINATION ${CMAKE_BINARY_DIR})
 
 #target_link_libraries(tetris PRIVATE SDL3::SDL3 SDL3_image::SDL3_image libjpeg-turbo::turbojpeg)
-target_link_libraries(tetris PRIVATE SDL3::SDL3 $<IF:$<TARGET_EXISTS:SDL3_image::SDL3_image-shared>,SDL3_image::SDL3_image-shared,SDL3_image::SDL3_image-static>)
+target_link_libraries(tetris
+	PRIVATE
+	SDL3::SDL3
+	PRIVATE
+	SDL3_image::SDL3_image
+)

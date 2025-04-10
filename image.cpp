@@ -31,6 +31,16 @@ int main() {
 	}
 
 	SDL_Texture* leftTexture = SDL_CreateTextureFromSurface(renderer, leftImage);
+
+	if (leftTexture == nullptr) {
+		SDL_DestroyRenderer(renderer);
+		SDL_DestroyWindow(window);
+
+		std::cout << "SDL_CreateTextureFromSurface error!!! => " << SDL_GetError() << std::endl;
+
+		return 1;
+	}
+
 	SDL_FRect leftTarget = { static_cast<float>(width) / 4 - static_cast<float>(imageWidth) / 2, static_cast<float>(height) / 2 - static_cast<float>(imageHeight) / 2 , static_cast<float>(imageWidth), static_cast<float>(imageHeight)};
 
 	SDL_DestroySurface(leftImage); // 메모리 해제
@@ -58,6 +68,14 @@ int main() {
 	}
 
 	SDL_Texture* rightTexture = SDL_CreateTextureFromSurface(renderer, rightImage);
+
+	if (rightTexture == nullptr) {
+		SDL_DestroyRenderer(renderer);
+		SDL_DestroyWindow(window);
+		std::cout << "SDL_CreateTextureFromSurface error!!! => " << SDL_GetError() << std::endl;
+		return 1;
+	}
+
 	SDL_FRect rightTarget = { static_cast<float>(width) / 4 * 3 - static_cast<float>(imageWidth) / 2, static_cast<float>(height / 2) - static_cast<float>(imageHeight) / 2, static_cast<float>(imageWidth), static_cast<float>(imageHeight) };
 
 	SDL_DestroySurface(rightImage); // 메모리 해제
