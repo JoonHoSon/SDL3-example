@@ -2,4 +2,5 @@
 .vs
 build
 cmake-build-debug-event-trace
-/.clang-format
+.clang-format
+.DS_Store

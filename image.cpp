@@ -10,6 +10,9 @@ int main() {
 	constexpr int height = 480;
 	constexpr int imageWidth = 200;
 	constexpr int imageHeight = 200;
+	constexpr float characterWidth = 52.0f;
+
+	constexpr float characterHeight = 105.0f;;
 
 	if (!SDL_CreateWindowAndRenderer("SDL3 Image test", width, height, SDL_WINDOW_RESIZABLE, &window, &renderer)) {
 		std::cout << "SDL_CreateWindowAndRenderer error => " << SDL_GetError() << std::endl;
@@ -55,7 +58,7 @@ int main() {
 	}
 
 	// JPG image
-	SDL_Surface* rightImage = IMG_Load("assets/gintama.jpg");
+	SDL_Surface* rightImage = IMG_Load("assets/walk_right.png");
 
 	if (rightImage == nullptr) {
 		SDL_DestroySurface(rightImage);
@@ -76,20 +79,15 @@ int main() {
 		return 1;
 	}
 
-	SDL_FRect rightTarget = { static_cast<float>(width) / 4 * 3 - static_cast<float>(imageWidth) / 2, static_cast<float>(height / 2) - static_cast<float>(imageHeight) / 2, static_cast<float>(imageWidth), static_cast<float>(imageHeight) };
+	//SDL_FRect rightTarget = { static_cast<float>(width) / 4 * 3 - static_cast<float>(imageWidth) / 2, static_cast<float>(height / 2) - static_cast<float>(imageHeight) / 2, static_cast<float>(imageWidth), static_cast<float>(imageHeight) };
+	constexpr SDL_FRect rightTarget = { static_cast<float>(width) / 4 * 3 - static_cast<float>(imageWidth) / 2, static_cast<float>(height) / 2 - static_cast<float>(imageHeight) / 2, characterWidth, characterHeight };
+	SDL_FRect viewCharacterTarget = { 0.0f, 0.0f, characterWidth, characterHeight };
 
 	SDL_DestroySurface(rightImage); // 메모리 해제
 
-	if (rightTexture == nullptr) {
-		SDL_DestroyRenderer(renderer);
-		SDL_DestroyWindow(window);
-
-		std::cout << "SDL_CreateTextureFromSurface error => " << SDL_GetError() << std::endl;
-
-		return 1;
-	}
-
 	bool running = true;
+	Uint64 lastTick = SDL_GetTicks();
+	Uint64 currentTick = lastTick;
 
 	while (running) {
 		SDL_Event event;
@@ -103,11 +101,23 @@ int main() {
 			}
 		}
 
+		currentTick = SDL_GetTicks();
+
+		if (currentTick - lastTick > 100) {
+			lastTick = currentTick;
+
+			viewCharacterTarget.x += characterWidth;
+
+			if (viewCharacterTarget.x > 520) {
+				viewCharacterTarget.x = 0;
+			}
+		}
+
 		SDL_RenderClear(renderer);
 		//SDL_RenderCopy(renderer, texture, nullptr, nullptr);
 		//SDL_RenderTexture(renderer, leftTexture, nullptr, nullptr);
 		SDL_RenderTexture(renderer, leftTexture, nullptr, &leftTarget);
-		SDL_RenderTexture(renderer, rightTexture, nullptr, &rightTarget);
+		SDL_RenderTexture(renderer, rightTexture, &viewCharacterTarget, &rightTarget);
 		SDL_RenderPresent(renderer);
 	}
 
