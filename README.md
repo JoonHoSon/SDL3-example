@@ -33,5 +33,5 @@ C:\tetris> .\build\Debug\tetris.exe # 실행
 ```
 
 ```cmd
-C:\> cmake -S . -B build -DCMAKE_TOOLCHAIN_FILE=C:\vcpkg\scripts\buildsystems\vcpkg.cmake -DSDLMIXER_VENDORED=OFF -DSDLMIXER_SAMPLES=OFF
+C:\> cmake -S . -B build -DCMAKE_TOOLCHAIN_FILE=C:/vcpkg/scripts/buildsystems/vcpkg.cmake -DSDLMIXER_VENDORED=OFF -DSDLMIXER_SAMPLES=OFF
 ```

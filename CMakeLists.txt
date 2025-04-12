@@ -15,7 +15,8 @@ find_package(SDL3_mixer CONFIG REQUIRED)
 #add_executable(${PROJECT_NAME} src/main.cpp)
 #add_executable(${PROJECT_NAME} src/image.cpp)
 #add_executable(${PROJECT_NAME} src/load_wave.cpp)
-add_executable(${PROJECT_NAME} src/load_mp3.cpp)
+#add_executable(${PROJECT_NAME} src/load_mp3.cpp)
+add_executable(${PROJECT_NAME} src/particle.cpp)
 
 file(COPY ./assets DESTINATION ${CMAKE_BINARY_DIR})
 
