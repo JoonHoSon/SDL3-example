@@ -1,11 +1,12 @@
 ﻿#include <iostream>
+#include <filesystem>
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_render.h>
 #include <SDL3_image/SDL_image.h>
 
 int main() {
-	SDL_Window* window;
-	SDL_Renderer* renderer;
+	SDL_Window *window;
+	SDL_Renderer *renderer;
 	constexpr int width = 640;
 	constexpr int height = 480;
 	constexpr int imageWidth = 200;
@@ -14,6 +15,8 @@ int main() {
 
 	constexpr float characterHeight = 105.0f;;
 
+	std::cout << "Current path : " << std::filesystem::current_path() << std::endl;
+
 	if (!SDL_CreateWindowAndRenderer("SDL3 Image test", width, height, SDL_WINDOW_RESIZABLE, &window, &renderer)) {
 		std::cout << "SDL_CreateWindowAndRenderer error => " << SDL_GetError() << std::endl;
 
@@ -21,7 +24,7 @@ int main() {
 	}
 
 	// BMP image
-	SDL_Surface* leftImage = SDL_LoadBMP("assets/kagura.bmp");
+	SDL_Surface *leftImage = SDL_LoadBMP("assets/kagura.bmp");
 
 	if (leftImage == nullptr) {
 		SDL_DestroySurface(leftImage); // 메모리 해제
@@ -33,7 +36,7 @@ int main() {
 		return 1;
 	}
 
-	SDL_Texture* leftTexture = SDL_CreateTextureFromSurface(renderer, leftImage);
+	SDL_Texture *leftTexture = SDL_CreateTextureFromSurface(renderer, leftImage);
 
 	if (leftTexture == nullptr) {
 		SDL_DestroyRenderer(renderer);
@@ -44,21 +47,16 @@ int main() {
 		return 1;
 	}
 
-	SDL_FRect leftTarget = { static_cast<float>(width) / 4 - static_cast<float>(imageWidth) / 2, static_cast<float>(height) / 2 - static_cast<float>(imageHeight) / 2 , static_cast<float>(imageWidth), static_cast<float>(imageHeight)};
+	constexpr SDL_FRect leftTarget = {
+		static_cast<float>(width) / 4 - static_cast<float>(imageWidth) / 2,
+		static_cast<float>(height) / 2 - static_cast<float>(imageHeight) / 2, static_cast<float>(imageWidth),
+		static_cast<float>(imageHeight)
+	};
 
 	SDL_DestroySurface(leftImage); // 메모리 해제
 
-	if (leftTexture == nullptr) {
-		SDL_DestroyRenderer(renderer);
-		SDL_DestroyWindow(window);
-
-		std::cout << "SDL_CreateTextureFromSurface error => " << SDL_GetError() << std::endl;
-
-		return 1;
-	}
-
 	// JPG image
-	SDL_Surface* rightImage = IMG_Load("assets/walk_right.png");
+	SDL_Surface *rightImage = IMG_Load("assets/walk_right.png");
 
 	if (rightImage == nullptr) {
 		SDL_DestroySurface(rightImage);
@@ -70,7 +68,7 @@ int main() {
 		return 1;
 	}
 
-	SDL_Texture* rightTexture = SDL_CreateTextureFromSurface(renderer, rightImage);
+	SDL_Texture *rightTexture = SDL_CreateTextureFromSurface(renderer, rightImage);
 
 	if (rightTexture == nullptr) {
 		SDL_DestroyRenderer(renderer);
@@ -80,14 +78,16 @@ int main() {
 	}
 
 	//SDL_FRect rightTarget = { static_cast<float>(width) / 4 * 3 - static_cast<float>(imageWidth) / 2, static_cast<float>(height / 2) - static_cast<float>(imageHeight) / 2, static_cast<float>(imageWidth), static_cast<float>(imageHeight) };
-	constexpr SDL_FRect rightTarget = { static_cast<float>(width) / 4 * 3 - static_cast<float>(imageWidth) / 2, static_cast<float>(height) / 2 - static_cast<float>(imageHeight) / 2, characterWidth, characterHeight };
-	SDL_FRect viewCharacterTarget = { 0.0f, 0.0f, characterWidth, characterHeight };
+	constexpr SDL_FRect rightTarget = {
+		static_cast<float>(width) / 4 * 3 - static_cast<float>(imageWidth) / 2,
+		static_cast<float>(height) / 2 - static_cast<float>(imageHeight) / 2, characterWidth, characterHeight
+	};
+	SDL_FRect viewCharacterTarget = {0.0f, 0.0f, characterWidth, characterHeight};
 
 	SDL_DestroySurface(rightImage); // 메모리 해제
 
 	bool running = true;
 	Uint64 lastTick = SDL_GetTicks();
-	Uint64 currentTick = lastTick;
 
 	while (running) {
 		SDL_Event event;
@@ -95,13 +95,12 @@ int main() {
 		while (SDL_PollEvent(&event)) {
 			if (event.type == SDL_EVENT_KEY_DOWN && event.key.key == SDLK_ESCAPE) {
 				running = false;
-			}
-			else if (event.type == SDL_EVENT_QUIT) {
+			} else if (event.type == SDL_EVENT_QUIT) {
 				running = false;
 			}
 		}
 
-		currentTick = SDL_GetTicks();
+		constexpr Uint64 currentTick = SDL_GetTicks();
 
 		if (currentTick - lastTick > 100) {
 			lastTick = currentTick;
