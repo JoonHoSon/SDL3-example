@@ -18,7 +18,13 @@ find_package(SDL3_mixer CONFIG REQUIRED)
 #add_executable(${PROJECT_NAME} src/load_mp3.cpp)
 add_executable(${PROJECT_NAME} src/particle.cpp)
 
-file(COPY ./assets DESTINATION ${CMAKE_BINARY_DIR})
+#file(COPY ./assets DESTINATION ${CMAKE_BINARY_DIR})
+
+if (WIN32)
+    file(COPY ./assets DESTINATION ${CMAKE_BINARY_DIR}/Debug)
+else ()
+    file(COPY ./assets DESTINATION ${CMAKE_BINARY_DIR})
+endif ()
 
 target_link_libraries(${PROJECT_NAME}
         PRIVATE
