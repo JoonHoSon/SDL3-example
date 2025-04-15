@@ -1,7 +1,6 @@
 #include <iostream>
 #include <SDL3/SDL.h>
 #include <SDL3_ttf/SDL_ttf.h>
-#include "han2unicode.h"
 
 static constexpr int screenWidth = 640;
 static constexpr int screenHeight = 480;
